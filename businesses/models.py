@@ -58,7 +58,7 @@ class FoodItemClass(models.Model):
 
 
     def get_item(self):
-        return IndividualFoodItem.objects.filter(item_class=self, status='1').first()
+        return IndividualFoodItem.objects.filter(item_class=self).filter(status='1').first()
 
     def get_list_available():
         list = []

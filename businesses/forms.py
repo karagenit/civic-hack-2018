@@ -5,7 +5,7 @@ from accounts.models import *
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, SetPasswordForm, AuthenticationForm, UsernameField
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from .models import Business, PickupRequest, FoodItem
+from .models import Business, FoodItem
 
 
 class AddItemForm(forms.Form):

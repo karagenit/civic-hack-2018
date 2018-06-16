@@ -1,21 +1,32 @@
 {% extends "client/header.html" %}
+{% load extras %}
 
 {% block content %}
+<h1 class="display-1">Food Items</h1>
   <div class="card-deck" style="margin-top: 1rem;">
     {% for item in items %}
-    <div class="card border-secondary mb-3" style="max-width: 18rem;">
-      <div class="card-header">{{item.name}}</div>
-      <div class="card-body text-secondary">
-        <h5 class="card-title">{{item.business.name}}</h5>
-        <p class="card-text">{{item.description}}</p>
-        <p class="card-text">
-          <a href="/clients/addToCart/{{item.id}}"><button class="btn btn-primary">Add To Cart</button></a>
-        </p>
-      </div>
-    </div>
+      {% if item|get_count_including_cart:user > 0%}
+        {{counter.increment}}
+        <div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card-header">{{item.name}}</div>
+          <div class="card-body text-secondary">
+            <h5 class="card-title">{{item.business.name}}</h5>
+            <p class="card-text">{{item.description}}</p>
+            <p class="card-text">
+              <a href="/clients/addToCart/{{item.id}}"><button class="btn btn-primary">Add To Cart</button></a>
+            </p>
+          </div>
+        </div>
+      {% endif %}
+      {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <br>
+        <div class="card-deck" style="margin-top: 1rem;">
+      {% endif %}
     {% endfor %}
   </div>
-
-  <a href="/clients/viewCart"><button class="btn btn-primary">View Cart</button></a>
+{% if counter.count == 0 %}
+<h2 class="display-1">No Items Available</h1>
+{% endif %}
 
 {% endblock %}

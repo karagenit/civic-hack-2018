@@ -9,6 +9,21 @@ from volunteers.models import Volunteer
 
 # Create your models here.
 
+class Counter:
+    count = 0
+
+    def increment(self):
+        self.count += 1
+        return ''
+
+    def decrement(self):
+        self.count -= 1
+        return ''
+
+    def double(self):
+        self.count *= 2
+        return ''
+        
 class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)

@@ -52,6 +52,8 @@ def checkout(request):
         request.save()
         cart = client.cart
         for item in cart.all():
+            item.status = '2'
+            item.save()
             request.items.add(item)
             cart.remove(item)
         cart.clear()

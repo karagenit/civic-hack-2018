@@ -50,6 +50,16 @@ def addToItemCount(request, item_class_id):
     item.save()
     return redirect('/businesses/')
 
+def subtractFromItemCount(request, item_id):
+    item_class = FoodItemClass.objects.get(id=item_id)
+    item = item_class.get_item()
+
+    if (item != None):
+        item.delete()
+
+    return redirect('/businesses')
+
+
 def restaurantfoods(request):
     return render(request, 'restaurantfoods.html')
 

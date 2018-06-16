@@ -10,7 +10,8 @@
         <h5 class="card-title">Count: {{item.get_count}}</h5>
         <p class="card-text">{{item.description}}</p>
         <p class="card-text">
-          <a href="/businesses/addToItemCount/{{item.id}}"><button class="btn btn-primary">Add To Count</button></a>
+          <a href="/businesses/addToItemCount/{{item.id}}"><button class="btn btn-primary">+</button></a>
+          <a href="/businesses/subtractFromItemCount/{{item.id}}"><button class="btn btn-primary">-</button></a>
           <a href="/businesses/deleteFoodItem/{{item.id}}"><button class="btn btn-danger">Delete</button></a>
         </p>
       </div>

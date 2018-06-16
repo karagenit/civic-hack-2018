@@ -36,3 +36,6 @@ def subtractFromItemCount(request, item_id):
     item.number = item.number - 1
     item.save()
     return redirect('/business/viewItems/'+str(item.business.id))
+
+def restaurantfoods(request):
+    return render(request, 'restaurantfoods.html')

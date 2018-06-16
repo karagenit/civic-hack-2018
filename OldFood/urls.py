@@ -19,11 +19,12 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from businesses.models import Business
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^', auth_views.login, {'template_name':'accounts/login.html'})
-
+    url(r'^$', auth_views.login, {'template_name':'accounts/login.html'}),
+    url(r'^businesses/', include('businesses.urls', namespace='businesses'))
 
 ]

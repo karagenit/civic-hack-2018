@@ -8,32 +8,33 @@
 
     <h1 class="display-1">{{request.user.first_name}}</h1>
     <h4 class="lead">{{request.date_created}}</h4>
-    <p> Food items: {% for item in request.items.all %}{{item.item_class.name}} from {{item.item_class.business.name}}{% if not forloop.last %}, {% endif %} {% endfor %} </p>
-
-
-
-    <div id="accordion" role="tablist">
-        <div class="card">
-            <div class="card-header" role="tab" id="headingOne">
-                <h5 class="mb-0">
-                    <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true"
-                       aria-controls="collapseOne">
-
-                    </a>
-                </h5>
-            </div>
-        </div>
-
-        <h1></h1>
-        <p class="text-left">{{request.comments}}</p>
-    </div>
     <div class="row">
-        <a class="col-sm-12" href="/organizer/updaterequest/{{request.id}}">
+        <a class="col-sm-12" href="/volunteers/accept/{{request.id}}">
             <button class="btn btn-primary btn-block">
               Accept <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </button>
         </a>
     </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tbody>
+        <thead>
+          <th> Location </th>
+          <th> Address </th>
+          <th> Items </th>
+        </thead>
+        <tbody>
+          {% for biz_req in request.business_set.all %}
+            <tr>
+              <td> {{biz_req.business.name}} </td>
+              <td> {{biz_req.business.address}} </td>
+              <td>{% for item in biz_req.items.all %} {{item.item_class.name}}{% if not forloop.last %}, {% endif %} {% endfor %} </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
   </div>
 
 

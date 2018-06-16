@@ -1,0 +1,53 @@
+{% extends "client/header.html" %}
+{% load extras %}
+
+{% block content %}
+<p></p>
+  <div class="jumbotron">
+    <h1 class="display-1">Your Order</h1>
+    <h3 class="lead">Driver: {{request.driver.profile.user.first_name}}</h3>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tbody>
+        <thead>
+          <th> Location </th>
+          <th> Status </th>
+          <th> Items </th>
+        </thead>
+        <tbody>
+          {% for biz_req in request.business_set.all %}
+            <tr>
+              <td> {{biz_req.business.name}} </td>
+              <td>
+
+                {% if biz_req.status == '1' %}
+                  Waiting
+                {% elif biz_req.status == '2'%}
+                  In Progress
+                {% elif biz_req.status == '3'%}
+                  Arrived
+                {% elif biz_req.status == '4'%}
+                  Picked Up
+                {% endif %}
+
+              </td>
+              <td>{% for item in biz_req.items.all %} {{item.item_class.name}}{% if not forloop.last %}, {% endif %} {% endfor %} </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+
+  {% if request.status == '3' %}
+    <h1>Delivered!</h1>
+  {% endif %}
+
+
+
+
+
+
+{% endblock %}

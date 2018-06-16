@@ -24,7 +24,7 @@ class Counter:
     def double(self):
         self.count *= 2
         return ''
-        
+
 class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)
@@ -67,26 +67,37 @@ class PickupRequest(models.Model):
     )
     date_created = models.DateTimeField()
 
-    def next_status(self):
-        if (self.status == '1'):
-            self.status = '2'
-        elif (self.status == '2'):
-            self.status = '3'
-
-        self.save()
-
     def get_status(self):
         if (self.status == '1' or self.status == '3'):
             return self.status
         elif (self.status == '2'):
-            biz_req = BusinessRequest.objects.filter(parentRequest=self,in_progress=True).first()
+            biz_req = self.current()
             return biz_req.status
+
+    def all_pickups_done(self):
+        bool = True
+        for biz_req in self.business_set.all():
+            bool = bool and (biz_req.status == '4')
+
+        return bool
+
+    def accept(self):
+        self.status = '2'
+        self.save()
+
+    def next_business_request(self):
+        return BusinessRequest.objects.filter(parentRequest=self, status='1').first()
+
+    def current(self):
+        return BusinessRequest.objects.filter(parentRequest=self, is_running=True).first()
+
+
 
 
 class BusinessRequest(models.Model):
     is_running = models.BooleanField(default=False)
     STATUS_CHOICES = (('1', 'Waiting',), ('2', 'In Progress',), ('3', 'Arrived'), ('4', 'Picked Up'))
-    status = models.CharField(max_length=50, default='Requested')
+    status = models.CharField(max_length=50, default='1')
     business = models.ForeignKey(
         Business,
         on_delete=models.CASCADE,
@@ -98,26 +109,24 @@ class BusinessRequest(models.Model):
         related_name='business_set'
     )
 
-    def next_status(self):
-        if (self.status == '1'):
-            self.status = '2'
-        elif (self.status == '2'):
-            self.status = '3'
-        elif (self.status == '3'):
-            self.status = '4'
-
+    def start(self):
+        self.is_running = True
+        self.status = '2'
         self.save()
 
-    def next_request(self, pick_request):
-        self.is_running = False
+    def arrive(self):
+        self.status = '3'
         self.save()
 
-        next = BusinessRequest.objects.filter(parentRequest=pick_request, is_running=False).first()
-        next.is_running = True
-        next.status = '2'
+    def end(self):
+        self.status='4'
+        self.is_running=False
+        self.save()
 
-        next.save()
-        return next
+    def next(parentRequest):
+        return BusinessRequest.objects.filter(parentRequest=parentRequest, status='1')
+
+
 
 class Record(models.Model):
     date = models.DateField()

@@ -1,0 +1,64 @@
+{% extends "volunteers/header.html" %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+
+    <h1 class="display-1">{{request.user.first_name}}</h1>
+    {% if home == False %}
+      <h4 class="lead">Picking up: {{current.business.name}}</h4>
+    {% else %}
+      <h4 class="lead">Dropping off</h4>
+    {% endif %}
+    <p>
+      {% for item in current.items.all %}
+        {{item.item_class.name}}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+        {% if home == False%}
+          {% if arrived %}
+          <div class="row">
+            <a class="col-sm-12" href="/volunteers/picked_up/{{request.id}}">
+                <button class="btn btn-primary btn-block">
+                  Picked Up
+                </button>
+            </a>
+          </div>
+          {% else %}
+          <div class="row">
+            <a class="col-sm-12" href="/volunteers/arrived/{{request.id}}">
+                <button class="btn btn-primary btn-block">
+                  Arrived
+                </button>
+            </a>
+          </div>
+          {% endif %}
+        {% else %}
+        <div class="row">
+          <a class="col-sm-12" href="/volunteers/deliver/{{request.id}}">
+              <button class="btn btn-primary btn-block">
+                Deliver
+              </button>
+          </a>
+        </div>
+        {% endif %}
+  </div>
+  {% if not home %}
+    <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item"
+                  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyB-YQD-s4ery8KQRnzX7FhZsBC4SeFRcjA&origin={{last_location}}&destination={{current.business.address}}"
+                  allowfullscreen></iframe>
+    </div>
+  {% else %}
+    <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item"
+                  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyB-YQD-s4ery8KQRnzX7FhZsBC4SeFRcjA&origin={{last_location}}&destination={{request.user.profile.client.address}}"
+                  allowfullscreen></iframe>
+    </div>
+  {% endif %}
+
+
+
+
+{% endblock %}

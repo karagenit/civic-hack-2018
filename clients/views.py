@@ -74,11 +74,33 @@ def checkout(request):
             br.items.add(item)
             br.save()
 
-        return redirect('/clients/')
+        return redirect('/clients/request/'+str(request.id))
 
     else:
         return redirect('/login')
 
+
+def request(request, req_id):
+    req = PickupRequest.objects.get(id=req_id)
+    if (request.user.is_authenticated() and request.user.profile.is_client() and req.user == request.user):
+        approve_button = (req.status == '2' and req.all_pickups_done())
+
+        return render(request, 'client/request.html', {'request': req, 'approve_button': approve_button})
+
+    else:
+        return redirect('/login')
+
+
+def approve(request, req_id):
+    req = PickupRequest.objects.get(id=req_id)
+    if (request.user.is_authenticated() and request.user.profile.is_client() and req.user == request.user and req.status == '2' and req.all_pickups_done()):
+        req.status = '4'
+        req.save()
+
+        return redirect('/clients/')
+
+    else:
+        return redirect('/login')
 
 def add_item(request, item_id):
     if (request.user.is_authenticated() and request.user.profile.is_client()):

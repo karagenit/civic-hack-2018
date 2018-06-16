@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^removeFromCart/(?P<item_id>[0-9]+)/$', views.remove_item),
     url(r'^viewCart/$', views.viewCart),
     url(r'^checkout/$', views.checkout),
+    url(r'^request/(?P<req_id>[0-9]+)/$', views.request),
 
     url(r'^restaurants/$', views.overallRestaurantView),
     url(r'^restaurant/(?P<business_id>[0-9]+)$', views.viewRestaurant),

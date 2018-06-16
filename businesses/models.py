@@ -23,11 +23,7 @@ class Business(models.Model):
 
 
 
-class PickupRequest(models.Model):
-    business = models.ForeignKey('Business', on_delete=models.CASCADE)
-    description = models.CharField(max_length=1024)
-    date_created = models.DateField()
-    available_for = models.DurationField()
+
 
 class FoodItem(models.Model):
     name = models.CharField(max_length=128)

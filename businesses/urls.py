@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^addFoodItems/(?P<biz_id>[0-9]+)/$', views.addFoodItem),
     url(r'^addToItemCount/(?P<item_id>[0-9]+)/$', views.addToItemCount),
     url(r'^subtractFromItemCount/(?P<item_id>[0-9]+)/$', views.subtractFromItemCount),
+    url(r'^restaurantfoods/', views.restaurantfoods),
     # edit item
     # view drivers
 ]

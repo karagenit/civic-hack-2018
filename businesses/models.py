@@ -11,8 +11,8 @@ class Business(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
 
     @receiver(post_save, sender=Profile)
-    def create_user_business(sender, instance, created, **kwargs):
-        if created:
+    def create_user_business(sender, instance, **kwargs):
+        if instance.member_type == '3':
             Business.objects.create(profile=instance)
 
     @receiver(post_save, sender=Profile)

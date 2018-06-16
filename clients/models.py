@@ -14,7 +14,7 @@ class Client(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
 
     objects = models.Manager()
-    
+
     # TODO some way to ask for/schedule 'drop-offs'
     @receiver(post_save, sender=Profile)
     def create_user_client(sender, instance, **kwargs):
@@ -28,7 +28,6 @@ class Client(models.Model):
             instance.client.save()
 
 class PickupRequest(models.Model):
-    uesr = models.
     items = models.ManyToManyField(FoodItem, related_name="request_fooditems")
     comments = models.CharField(max_length=1024)
     date_created = models.DateField()

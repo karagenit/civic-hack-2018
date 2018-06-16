@@ -1,0 +1,26 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th>Item</th>
+          <th>Restaurant</th>
+          <th>Tagline</th>
+        </tr>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td>{{item.item_class.name}}</td>
+              <td>{{item.item_class.business.name}}</td>
+              <td><a href="/clients/removeFromCart/{{item.id}}"><button class="btn btn-danger">Remove</button></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  <a href="/clients/checkout"><button class="btn btn-primary">Checkout</button></a>
+
+{% endblock %}

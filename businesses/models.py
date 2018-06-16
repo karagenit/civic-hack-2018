@@ -43,6 +43,19 @@ class FoodItemClass(models.Model):
         else:
             return IndividualFoodItem.objects.filter(item_class=self).count()
 
+    def get_item(self):
+        return IndividualFoodItem.objects.filter(item_class=self).first()
+
+    def get_list_available():
+        list = []
+
+        for item_class in FoodItemClass.objects.all():
+            if (item_class.get_item() != None):
+                list.append(item_class)
+
+        return list
+
+
 
 class IndividualFoodItem(models.Model):
     item_class = models.ForeignKey(

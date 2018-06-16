@@ -6,9 +6,13 @@ from django.views.generic import ListView, DetailView
 from . import views
 
 urlpatterns = [
-    url(r'^viewItems/(?P<biz_id>[0-9]+)', views.viewItems),
-    url(r'^requestFood/', views.addClientRequest)
-    url(r'^restaurantfoods/', views.restaurantfoods),
+    url(r'^$', views.home),
+    url(r'^list/$', views.list_all_items),
+    url(r'^addToCart/(?P<item_id>[0-9]+)/$', views.add_item),
+    url(r'^removeFromCart/(?P<item_id>[0-9]+)/$', views.remove_item),
+    url(r'^viewCart/$', views.viewCart),
+    url(r'^checkout/$', views.checkout),
+
     # edit item
     # view drivers
 ]

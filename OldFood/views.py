@@ -6,7 +6,7 @@ def home(request):
     if request.user.is_authenticated():
         user = request.user
         if (user.profile.is_client()):
-            return redirect('/client')
+            return redirect('/clients')
         elif (user.profile.is_restaurant()):
             return redirect('/businesses')
         elif (user.profile.is_driver()):

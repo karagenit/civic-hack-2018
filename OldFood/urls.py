@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^volunteers/', include('volunteers.urls', namespace='volunteers')),
+    url(r'^clients/', include('clients.urls', namespace='clients')),
     url(r'^businesses/', include('businesses.urls', namespace='businesses')),
     url(r'^login', auth_views.login, {'template_name':'accounts/login.html'}),
     url(r'^$', views.home),

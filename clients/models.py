@@ -49,3 +49,14 @@ class PickupRequest(models.Model):
     )
     items = models.ManyToManyField(IndividualFoodItem, related_name="requestfooditems")
     date_created = models.DateTimeField()
+
+class Record(models.Model):
+    date = models.DateField()
+    client = models.ForeignKey(
+        Client,
+        on_delete=models.CASCADE,
+    )
+    calories = models.IntegerField(default=0)
+    carbohydrates = models.IntegerField(default=0)
+    proteins = models.IntegerField(default=0)
+    fat = models.IntegerField(default=0)

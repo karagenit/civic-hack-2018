@@ -2,6 +2,7 @@
 
 
 {% block content %}
+  <h1 class="display-1">Food Items <a class="plus" href="/businesses/addFoodItems/{{business.id}}">+</a></h1>
   <div class="card-deck" style="margin-top: 1rem;">
     {% for item in items %}
     <div class="card border-secondary mb-3" style="max-width: 18rem;">
@@ -10,7 +11,8 @@
         <h5 class="card-title">Count: {{item.get_count}}</h5>
         <p class="card-text">{{item.description}}</p>
         <p class="card-text">
-          <a href="/businesses/addToItemCount/{{item.id}}"><button class="btn btn-primary">Add To Count</button></a>
+          <a href="/businesses/addToItemCount/{{item.id}}"><button class="btn btn-primary">+</button></a>
+          <a href="/businesses/subtractFromItemCount/{{item.id}}"><button class="btn btn-primary">-</button></a>
           <a href="/businesses/deleteFoodItem/{{item.id}}"><button class="btn btn-danger">Delete</button></a>
         </p>
       </div>
@@ -22,9 +24,4 @@
     {% endif %}
     {% endfor %}
   </div>
-
-
-  <a class="text-center" href="/businesses/addFoodItems/{{business.id}}">
-    <button class="btn btn-primary">Add</button>
-  </a>
 {% endblock %}

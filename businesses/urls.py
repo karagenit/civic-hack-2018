@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^addFoodItems/(?P<biz_id>[0-9]+)', views.addFoodItem),
     url(r'^deleteFoodItem/(?P<item_id>[0-9]+)', views.deleteFoodItem),
     url(r'^addToItemCount/(?P<item_class_id>[0-9]+)', views.addToItemCount),
-    #url(r'^subtractFromItemCount/(?P<item_id>[0-9]+)', views.subtractFromItemCount),
+    url(r'^subtractFromItemCount/(?P<item_id>[0-9]+)', views.subtractFromItemCount),
     url(r'^restaurantfoods/', views.restaurantfoods),
     url(r'^$', views.home),
     url(r'^test/$', views.test),

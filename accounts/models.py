@@ -19,7 +19,7 @@ class Profile(models.Model):
         null=True
     )
     # The user variable to allow authentication to work
-    
+
     bio = models.CharField(max_length=1000, default = "")
 
     CHOICES = (('1', 'Senior Citizen',), ('2', 'Volunteer Driver',), ('3', 'Restaraunt'))
@@ -56,14 +56,4 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     except:
         print("stuff")
-        print(sender.username, sender.id)
-        print(instance.username, instance.id)
-        p = Profile.objects.filter(username = instance.get_username()).first()
-        if p is None:
-            print("cool")
-            instance.profile = Profile(username=instance.get_username())
-        else:
-            print("cool a")
-            instance.profile = p
-        instance.profile.user = instance
-        instance.save()
+        

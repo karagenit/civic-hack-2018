@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime, timedelta, timezone
 
 from businesses.models import FoodItemClass, IndividualFoodItem
-from .models import PickupRequest
+from .models import PickupRequest, BusinessRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from businesses.models import Business, FoodItemClass
 
@@ -60,17 +60,18 @@ def checkout(request):
         request = PickupRequest(user=request.user, date_created=datetime.now())
         request.save()
         cart = client.cart
+
         for item in cart.all():
-            item.status = '2'
-            item.save()
-            request.items.add(item)
-            cart.remove(item)
-        cart.clear()
-        client.save()
+            business = item.item_class.business
+            if (BusinessRequest.objects.filter(parentRequest=request, business=business).first() == None):
+                new_br = BusinessRequest(business=business, parentRequest=request)
+                new_br.save()
 
-        request.save()
+            br = BusinessRequest.objects.filter(parentRequest=request, business=business).first()
+            br.items.add(item)
+            br.save()
 
-        return redirect('/clients')
+        return redirect('/clients/')
 
     else:
         return redirect('/login')

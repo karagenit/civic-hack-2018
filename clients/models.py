@@ -4,8 +4,9 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-from businesses.models import IndividualFoodItem
 from volunteers.models import Volunteer
+from businesses.models import Business, IndividualFoodItem
+
 
 # Create your models here.
 
@@ -38,8 +39,8 @@ class Client(models.Model):
             instance.client.save()
 
 class PickupRequest(models.Model):
-    STATUS_CHOICES = (('1', 'Requested',), ('2', 'In Progress',), ('3', 'Arrived'), ('4', 'Picked Up'), ('5', 'Delivered'))
-    status = models.CharField(max_length=50, default='Requested')
+    STATUS_CHOICES = (('1', 'Requested',), ('2', 'In Progress',), ('3', 'Delivered'))
+    status = models.CharField(max_length=50, default='1')
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -49,8 +50,59 @@ class PickupRequest(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
-    items = models.ManyToManyField(IndividualFoodItem, related_name="requestfooditems")
     date_created = models.DateTimeField()
+
+    def next_status(self):
+        if (self.status == '1'):
+            self.status = '2'
+        elif (self.status == '2'):
+            self.status = '3'
+
+        self.save()
+
+    def get_status(self):
+        if (self.status == '1' or self.status == '3'):
+            return self.status
+        elif (self.status == '2'):
+            biz_req = BusinessRequest.objects.filter(parentRequest=self,in_progress=True).first()
+            return biz_req.status
+
+
+class BusinessRequest(models.Model):
+    is_running = models.BooleanField(default=False)
+    STATUS_CHOICES = (('1', 'Waiting',), ('2', 'In Progress',), ('3', 'Arrived'), ('4', 'Picked Up'))
+    status = models.CharField(max_length=50, default='Requested')
+    business = models.ForeignKey(
+        Business,
+        on_delete=models.CASCADE,
+    )
+    items = models.ManyToManyField(IndividualFoodItem, related_name="requestfooditems")
+    parentRequest = models.ForeignKey(
+        PickupRequest,
+        on_delete=models.CASCADE,
+        related_name='business_set'
+    )
+
+    def next_status(self):
+        if (self.status == '1'):
+            self.status = '2'
+        elif (self.status == '2'):
+            self.status = '3'
+        elif (self.status == '3'):
+            self.status = '4'
+
+        self.save()
+
+    def next_request(self, pick_request):
+        self.is_running = False
+        self.save()
+
+        next = BusinessRequest.objects.filter(parentRequest=pick_request, is_running=False).first()
+        next.is_running = True
+        next.status = '2'
+
+        next.save()
+        return next
 
 class Record(models.Model):
     date = models.DateField()

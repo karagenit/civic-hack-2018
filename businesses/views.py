@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import AddItemForm
 from .models import Business, FoodItemClass, IndividualFoodItem
+from clients.models import PickupRequest
 
 # Create your views here.
 def test(request):
@@ -63,5 +64,11 @@ def subtractFromItemCount(request, item_id):
 def restaurantfoods(request):
     return render(request, 'restaurantfoods.html')
 
-def drivertable(request):
-    return render(request, 'drivertable.html')
+def requests(request):
+    if request.user.is_authenticated() and request.user.profile.is_restaurant():
+        business = request.user.profile.business
+        requests = PickupRequest.objects.filter(business=business)
+        return redirect(request, 'business/requests.html', {'business': business, 'requests': requests})
+    else:
+
+        return redirect('/login')

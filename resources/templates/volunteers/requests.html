@@ -11,17 +11,17 @@
       <table class="table table-hover">
         <tr>
           <th>Name</th>
-          <th>Items</th>
+          <th>Restaurants</th>
           <th>Address</th>
-          <th>Requested</th>
+          <th>Time</th>
         </tr>
         <tbody>
           {% for request in requests %}
             <tr>
               <td><a href="/volunteers/request/{{request.id}}">{{request.user.first_name}}</a></td>
               <td>
-                {% for item in request.items.all %}
-                  {{item.item_class.name}}{% if not forloop.last %}, {% endif %}
+                {% for biz_req in request.business_set.all %}
+                  {{biz_req.business.name}}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
               <td>{{request.user.profile.client.address}}</td>

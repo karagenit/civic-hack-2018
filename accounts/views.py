@@ -154,6 +154,8 @@ def signupClient(request):
             data = form3.save()
             client.name = data['name']
             client.address = data['address']
+            client.gender = data['gender']
+            client.active = data['active']
             client.save()
 
             return redirect('/login')

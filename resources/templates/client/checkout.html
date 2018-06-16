@@ -1,8 +1,13 @@
 {% extends "client/header.html" %}
 
 {% block content %}
+<h1 class="display-3">Checkout</h1>
+<h1 class="display-3">Health Rating: {{deviation}}</h1>
+<h6 class="display-5">Lower is better, Lower than 10 is the best</h6>
+
     <div class="table-responsive">
       <table class="table table-hover">
+
         <tr>
           <th>Item</th>
           <th>Restaurant</th>
@@ -19,6 +24,7 @@
         </tbody>
       </table>
     </div>
+
 
   <a href="/clients/checkout"><button class="btn btn-primary">Checkout</button></a>
 

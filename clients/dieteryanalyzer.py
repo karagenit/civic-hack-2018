@@ -1,3 +1,5 @@
+import math
+
 def get_calories_needed(male, active):
     if male:
         if active:
@@ -13,12 +15,11 @@ def get_calories_needed(male, active):
 def avg(one, two):
     return (one+two)/2
 
-def get_percent_makeup(type_cal, total_cal):
-    return type_cal/total_cal*100
+def total_percent_deviation(percent1, percent2, percent3):
+    return math.fabs(percent1) + math.fabs(percent2) + math.fabs(percent3)
 
-
-def get_percent_from_ideal(percent_ideal, type_cal, total_cal):
-    return get_percent_makeup(type_cal, total_cal)/percent_ideal*100 - 100
+def get_from_percent_ideal(percent_ideal, type_cal, total_cal):
+    return ((type_cal*100)/total_cal) -percent_ideal
 
 def get_percent_from_ideal_carb(carb_cal, total_cal):
     avg = avg(45,65)

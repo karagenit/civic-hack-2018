@@ -16,6 +16,15 @@ class Client(models.Model):
     cart = models.ManyToManyField(IndividualFoodItem, related_name="cart")
     objects = models.Manager()
 
+    def get_num_items_in_cart(self, item_class):
+        count = 0
+        for item in self.cart.all():
+            if (item.item_class == item_class):
+                count = count + 1
+
+        return count
+
+
     # TODO some way to ask for/schedule 'drop-offs'
     @receiver(post_save, sender=Profile)
     def create_user_client(sender, instance, **kwargs):

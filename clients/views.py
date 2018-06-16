@@ -3,6 +3,8 @@ from datetime import datetime, timedelta, timezone
 
 from businesses.models import FoodItemClass, IndividualFoodItem
 from .models import PickupRequest
+from django.http import HttpResponse, HttpResponseRedirect
+from businesses.models import Business, FoodItemClass
 
 def home(request):
     if (request.user.is_authenticated() and request.user.profile.is_client()):
@@ -16,14 +18,21 @@ def list_all_items(request):
         print(items)
         return render(request, 'client/list_all.html', {'items': items})
 
+    elif request.user.is_authenticated:
+        return HttpResponse(
+            'You don\'t have the right permissions to see this page. You must be a Client to access this page.')
     else:
         return redirect('/login')
 
-def restaurants(request):
-    if (request.user.is_authenticated() and request.user.profile.is_client()):
-        businesses = Business.objects.all()
-        return render(request, 'client/restaurants.html', {'businesses': businesses})
+def overallRestarauntView(request):
+    businesses = Business.objects.all()
+    return render(request, 'client/restaurants.html', {'businesses': businesses})
 
+def viewRestaurant(request, business_id):
+    if request.user.is_authenticated():
+        business = Business.objects.get(id=business_id)
+        items = FoodItemClass.get_list_available_for_business(business)
+        return render(request, 'client/restaurant.html', {'business': business, 'user': request.user, 'items': items})
     else:
         return redirect('/login')
 
@@ -75,6 +84,16 @@ def add_item(request, item_id):
 
         return redirect('/clients')
 
+    else:
+        return redirect('/login')
+
+def add_item_restaurant(request, item_id):
+    if (request.user.is_authenticated() and request.user.profile.is_client()):
+        item_class = FoodItemClass.objects.get(id=item_id)
+        item = item_class.get_item()
+        request.user.profile.client.cart.add(item)
+
+        return redirect('/clients/restaurant/'+str(item_class.business.id))
     else:
         return redirect('/login')
 

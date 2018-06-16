@@ -25,6 +25,7 @@ class Business(models.Model):
 
 
 
+
 class FoodItemClass(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=512)
@@ -32,6 +33,13 @@ class FoodItemClass(models.Model):
         Business,
         on_delete=models.CASCADE,
     )
+
+    # def get_number_available(self):
+    #     if (IndividualFoodItem.objects.filter(item_class=self).filter(status='1') == None):
+    #         return 0
+    #     else:
+    #         return IndividualFoodItem.objects.filter(item_class=self).filter(status='1').count()
+
 
     def get_items_classes_for_business(business):
         item_classes = FoodItemClass.objects.filter(business=business)
@@ -42,6 +50,14 @@ class FoodItemClass(models.Model):
             return 0
         else:
             return IndividualFoodItem.objects.filter(item_class=self).count()
+
+    def get_count_available(self):
+        if (IndividualFoodItem.objects.filter(item_class=self).filter(status='1') == None):
+            return 0
+        else:
+            return IndividualFoodItem.objects.filter(item_class=self).filter(status='1').count()
+
+
 
     def get_item(self):
         return IndividualFoodItem.objects.filter(item_class=self, status='1').first()
@@ -54,6 +70,16 @@ class FoodItemClass(models.Model):
                 list.append(item_class)
 
         return list
+
+    def get_list_available_for_business(business):
+        list = FoodItemClass.get_list_available()
+
+        for item_class in list:
+            if (item_class.business != business):
+                list.remove(item_class)
+
+        return list
+
 
 
 

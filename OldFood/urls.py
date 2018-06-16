@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^businesses/', include('businesses.urls', namespace='businesses')),
     url(r'^login', auth_views.login, {'template_name':'accounts/login.html'}),
     url(r'^$', views.home),
+    url(r'^index', views.index),
     url(r'^logout/$', auth_views.logout, {'next_page' : '/accounts/logout_lander'}, name='logout')
 
 ]

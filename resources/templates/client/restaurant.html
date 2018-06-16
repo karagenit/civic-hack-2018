@@ -37,7 +37,7 @@
               <td> {{item.description}} </td>
               <td> {{item|get_count_including_cart:user}} </td>
               {% if user.profile.is_client %}
-                <td> <a href="/clients/addToCartRestaraunt/{{item.id}}"><button class="btn btn-primary">Add</button></a> </td>
+                <td> <a href="/clients/addToCartRestaurant/{{item.id}}"><button class="btn btn-primary">Add</button></a> </td>
               {% endif %}
             </tr>
           {% endfor %}

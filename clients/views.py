@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from businesses.models import FoodItemClass, IndividualFoodItem
-from .models import PickupRequest, BusinessRequest
+from .models import PickupRequest, BusinessRequest, Counter
 from django.http import HttpResponse, HttpResponseRedirect
 from businesses.models import Business, FoodItemClass
 
@@ -15,8 +15,9 @@ def home(request):
 def list_all_items(request):
     if (request.user.is_authenticated() and request.user.profile.is_client()):
         items = FoodItemClass.get_list_available()
+        counter = Counter()
         print(items)
-        return render(request, 'client/list_all.html', {'items': items})
+        return render(request, 'client/list_all.html', {'items': items, 'counter': counter})
 
     elif request.user.is_authenticated:
         return HttpResponse(
@@ -24,7 +25,7 @@ def list_all_items(request):
     else:
         return redirect('/login')
 
-def overallRestarauntView(request):
+def overallRestaurantView(request):
     businesses = Business.objects.all()
     return render(request, 'client/restaurants.html', {'businesses': businesses})
 

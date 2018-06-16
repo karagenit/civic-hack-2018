@@ -12,8 +12,7 @@ class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
-    items = models.ManyToManyField(FoodItem, related_name="cart")
-
+    cart = models.ManyToManyField(FoodItem, related_name="cart")
     objects = models.Manager()
 
     # TODO some way to ask for/schedule 'drop-offs'

@@ -28,10 +28,13 @@ class Client(models.Model):
             instance.client.save()
 
 class PickupRequest(models.Model):
+<<<<<<< HEAD
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
     )
+=======
+>>>>>>> 4ea6e1b5861e6a392b714944ae3bf5d83d988ca0
     items = models.ManyToManyField(FoodItem, related_name="request_fooditems")
     comments = models.CharField(max_length=1024)
     date_created = models.DateField()

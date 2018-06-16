@@ -9,7 +9,8 @@ from django.db.models.signals import post_save
 class Volunteer(models.Model):
     name = models.CharField(max_length=128)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
-
+    objects = models.Manager()
+    
     @receiver(post_save, sender=Profile)
     def create_user_volunteer(sender, instance, created, **kwargs):
         if instance.member_type == '2':

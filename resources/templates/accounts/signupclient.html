@@ -5,21 +5,7 @@
   <h1>  </h1>
   <form method="post">
     {% csrf_token %}
-      {% for field in form1 %}
-      <p align="left">
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">{{ field.label }}</label>
-          <div class="col-sm-9"> {{ field }} </div>
-        </div>
-        {% if field.help_text %}
-          <small style="display: none">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-      {% endfor %}
-      {% for field in form2 %}
+      {% for field in form3 %}
       <p align="left">
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">{{ field.label }}</label>

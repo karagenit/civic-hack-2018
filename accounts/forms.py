@@ -172,6 +172,59 @@ class SignupForm(forms.Form):
             raise
 
 
+class SignupBusinessForm(forms.Form):
+    name = forms.CharField(label='Name', max_length=150, widget=forms.TextInput(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Name'}))
+    address = forms.CharField(label='Address', max_length=150, widget=forms.TextInput(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Address'}))
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        return name
+
+    def clean_address(self):
+        address = self.cleaned_data['address']
+        return address
+
+    def save(self, commit=True):
+        return self.cleaned_data
+
+class SignupVolunteerForm(forms.Form):
+    name = forms.CharField(label='Name', max_length=150, widget=forms.TextInput(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Name'}))
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        return name
+
+    def save(self, commit=True):
+        return self.cleaned_data
+
+class SignupClientForm(forms.Form):
+    name = forms.CharField(label='Name', max_length=150, widget=forms.TextInput(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Name'}))
+    address = forms.CharField(label='Address', max_length=150, widget=forms.TextInput(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Address'}))
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        return name
+
+    def clean_address(self):
+        address = self.cleaned_data['address']
+        return address
+
+    def save(self, commit=True):
+        return self.cleaned_data
 # class SignupForUserForm(forms.Form):
 #     first_name = forms.CharField(label='First Name', max_length=150, widget=forms.TextInput(
 #         attrs={'type': 'text',

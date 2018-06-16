@@ -25,6 +25,24 @@ from django.contrib.auth import update_session_auth_hash
 def home(request):
     redirect('accounts/profile')
 
+def profile(request):
+    if request.user.is_authenticated():
+        # This line breaks the code: "'int' is not iterable"
+        user = request.user
+        profile = user.profile
+
+        return render(request, "accounts/profile.html", {'user':user, 'profile':profile, 'this_user':True})
+    else:
+        return redirect('/login')
+
+def other_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    if (user != request.user):
+        profile = Profile.objects.get(user=user)
+        groups = Group.get_is_member_list(user)
+        return render(request, 'accounts/profile.html', {'user':user, 'profile':profile,'this_user':False})
+    else:
+        return redirect('/accounts/profile')
 # The profile page for the current user
 # def profile(request):
 #     if request.user.is_authenticated():
@@ -157,7 +175,7 @@ def signupBusiness(request):
             return redirect('/login')
     else:
         form3 = SignupBusinessForm(initial={'name':business.profile.user.first_name})
-    return redirect(request, 'accounts/signupbusiness.html', {'form3': form3})
+    return render(request, 'accounts/signupbusiness.html', {'form3': form3})
 
 # def signup_foruser(request, group_id, user_slot_id):
 #     # Checks if the user is sending their data (POST) or getting the form (GET)

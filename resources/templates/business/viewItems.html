@@ -15,8 +15,14 @@
         </p>
       </div>
     </div>
+    {% if forloop.counter|divisibleby:3 %}
+  </div>
+  <br>
+  <div class="card-deck" style="margin-top: 1rem;">
+    {% endif %}
     {% endfor %}
   </div>
+
 
   <a class="text-center" href="/businesses/addFoodItems/{{business.id}}">
     <button class="btn btn-primary">Add</button>

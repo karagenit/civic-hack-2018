@@ -1,0 +1,34 @@
+{% extends "header.html" %}
+
+{% block content %}
+<p></p>
+<div class="row">
+  <div class="col-md-5">
+    <div>
+      <div class="row">
+
+        <div class="col-md-10">
+          <h1 class="text-left"> {{user.username}}</h1>
+        </div>
+      </div>
+      {% if this_user %}
+        <h1></h1>
+        <div class="row">
+
+          <a class="col-md-6" href="/accounts/profile/edit/">
+            <button type="button" class="btn btn-primary btn-block">Edit Profile</button>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <h1></h1>
+    <h1></h1>
+    <p class="text-left">
+      {{profile.bio}}
+    </p>
+  </div>
+
+</div>
+
+{% endblock %}

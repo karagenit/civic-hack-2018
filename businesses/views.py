@@ -39,8 +39,8 @@ def deleteFoodItem(request, item_id):
 
         return redirect('/login')
 
-def viewItems(request, biz_id):
-    business = Business.objects.get(id=biz_id)
+def viewItems(request):
+    business = Business.objects.get(profile=request.user.profile)
     items = FoodItemClass.get_items_classes_for_business(business)
     return render(request, 'business/viewItems.html', {'business': business, 'items':items})
 

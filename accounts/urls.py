@@ -15,7 +15,9 @@ urlpatterns = [
     url(r'^signupuser', views.signupUser, name='signupUser'),
     url(r'^signupclient', views.signupClient, name='signupClient'),
     url(r'^signupvolunteer', views.signupVolunteer, name='signupVolunteer'),
-    url(r'^signupbusiness', views.signupBusiness, name='signupBusiness')
+    url(r'^signupbusiness', views.signupBusiness, name='signupBusiness'),
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^profile/(?P<user_id>[0-9]+)', views.other_profile, name="other_profile"),
     # url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     #     views.activate, name='activate'),
 ]

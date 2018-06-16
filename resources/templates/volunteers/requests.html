@@ -18,10 +18,10 @@
         <tbody>
           {% for request in requests %}
             <tr>
-              <td><a href="/volunteers/request/{{request.id}}">{{request.user.first_name}}</a><td>
+              <td><a href="/volunteers/request/{{request.id}}">{{request.user.first_name}}</a></td>
               <td>
-                {% for item in request.items %}
-                  {{request.items}}
+                {% for item in request.items.all %}
+                  {{item.item_class.name}}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
               <td>{{request.user.profile.client.address}}</td>

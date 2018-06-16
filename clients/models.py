@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 from businesses.models import IndividualFoodItem
+from volunteers.models import Volunteer
 
 # Create your models here.
 
@@ -31,6 +32,11 @@ class PickupRequest(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+    )
+    driver = models.ForeignKey(
+        Volunteer,
+        on_delete=models.CASCADE,
+        null=True,
     )
     items = models.ManyToManyField(IndividualFoodItem, related_name="requestfooditems")
     date_created = models.DateTimeField()

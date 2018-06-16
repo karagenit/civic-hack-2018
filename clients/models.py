@@ -4,6 +4,8 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+from businesses.models import FoodItem
+
 # Create your models here.
 
 class Client(models.Model):
@@ -21,3 +23,10 @@ class Client(models.Model):
         #TODO: should be able to delete all the except: stuff after all the users have run this
         if instance.member_type == '1':
             instance.client.save()
+
+class PickupRequest(models.Model):
+    uesr = models.
+    items = models.ManyToManyField(FoodItem, related_name="request_fooditems")
+    comments = models.CharField(max_length=1024)
+    date_created = models.DateField()
+    available_for = models.DurationField()

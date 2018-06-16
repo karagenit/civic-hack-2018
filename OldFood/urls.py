@@ -24,14 +24,8 @@ from businesses.models import Business
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-<<<<<<< HEAD
     url(r'^$', auth_views.login, {'template_name':'accounts/login.html'}),
-    url(r'^businesses/', include('businesses.urls', namespace='businesses'))
-=======
+    url(r'^businesses/', include('businesses.urls', namespace='businesses')),
     url(r'^login', auth_views.login, {'template_name':'accounts/login.html'}),
-    url(r'^businesses/', include('businesses.urls')),
     url(r'^$', views.home),
-
->>>>>>> e26a6ee8e155301f23a09a34f91da87013e8d03b
-
 ]

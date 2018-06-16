@@ -52,3 +52,6 @@ def addToItemCount(request, item_class_id):
 
 def restaurantfoods(request):
     return render(request, 'restaurantfoods.html')
+
+def drivertable(request):
+    return render(request, 'drivertable.html')

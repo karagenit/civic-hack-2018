@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+
+<h1 class="display-3">Requests </h1>
+
+<div class="row">
+  <div class="col-md-11">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th>Name</th>
+          <th>Items</th>
+          <th>Address</th>
+          <th>Requested</th>
+        </tr>
+        <tbody>
+          {% for request in requests %}
+            <tr>
+              <td><a href="/volunteers/request/{{request.id}}">{{request.user.first_name}}</a><td>
+              <td>
+                {% for item in request.items %}
+                  {{request.items}}
+                {% endfor %}
+              </td>
+              <td>{{request.user.profile.client.address}}</td>
+              <td>{{request.date_created}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

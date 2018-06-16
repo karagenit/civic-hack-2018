@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^restaurantfoods/', views.restaurantfoods),
     url(r'^$', views.home),
     url(r'^test/$', views.test),
+    url(r'^drivertable/', views.drivertable),
     # edit item
     # view drivers
 ]

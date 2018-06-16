@@ -30,7 +30,7 @@ class Profile(models.Model):
     def is_client(profile):
         return profile.member_type == '1'
 
-    def is_diver(profile):
+    def is_driver(profile):
         return profile.member_type == '2'
 
     def is_restaurant(profile):

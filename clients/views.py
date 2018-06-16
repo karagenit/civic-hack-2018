@@ -26,9 +26,11 @@ def list_all_items(request):
         return redirect('/login')
 
 def overallRestaurantView(request):
-    businesses = Business.objects.all()
-    return render(request, 'client/restaurants.html', {'businesses': businesses})
-
+    if request.user.is_authenticated() and request.user.profile.is_client():
+        businesses = Business.objects.all()
+        return render(request, 'client/restaurants.html', {'businesses': businesses})
+    else:
+        return redirect('/login')
 def viewRestaurant(request, business_id):
     if request.user.is_authenticated():
         business = Business.objects.get(id=business_id)

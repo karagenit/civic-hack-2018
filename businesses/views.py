@@ -46,3 +46,6 @@ def subtractFromItemCount(request, item_id):
 
 def restaurantfoods(request):
     return render(request, 'restaurantfoods.html')
+
+def drivertable(request):
+    return render(request, 'drivertable.html')

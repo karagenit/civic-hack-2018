@@ -5,7 +5,7 @@ from accounts.models import *
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, SetPasswordForm, AuthenticationForm, UsernameField
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from .models import Business, FoodItem
+from .models import Business, FoodItemClass
 
 
 class AddItemForm(forms.Form):
@@ -23,7 +23,7 @@ class AddItemForm(forms.Form):
 
     # Save a new user and set their Group to Volunteer
     def save(self, commit=True):
-        item = FoodItem(
+        item = FoodItemClass(
             name=self.cleaned_data['name'],
             description=self.cleaned_data['description'],
         )

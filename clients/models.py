@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-from businesses.models import FoodItem
+from businesses.models import IndividualFoodItem
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
-    cart = models.ManyToManyField(FoodItem, related_name="cart")
+    cart = models.ManyToManyField(IndividualFoodItem, related_name="cart")
     objects = models.Manager()
 
     # TODO some way to ask for/schedule 'drop-offs'
@@ -32,7 +32,5 @@ class PickupRequest(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    items = models.ManyToManyField(FoodItem, related_name="request_fooditems")
+    items = models.ManyToManyField(IndividualFoodItem, related_name="requestfooditems")
     date_created = models.DateTimeField()
-
-    

@@ -33,6 +33,17 @@ class FoodItemClass(models.Model):
         on_delete=models.CASCADE,
     )
 
+    def get_items_classes_for_business(business):
+        item_classes = FoodItemClass.objects.filter(business=business)
+        return item_classes
+
+    def get_count(self):
+        if (IndividualFoodItem.objects.filter(item_class=self) == None):
+            return 0
+        else:
+            return IndividualFoodItem.objects.filter(item_class=self).count()
+
+
 class IndividualFoodItem(models.Model):
     item_class = models.ForeignKey(
         FoodItemClass,

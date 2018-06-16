@@ -104,9 +104,9 @@ def signupUser(request):
                 print("yeet")
                 return redirect('/accounts/signupclient')
             if profile.member_type == '2':
-                return redirect('/accounts/signupVolunteer')
+                return redirect('/accounts/signupvolunteer')
             if profile.member_type == '3':
-                return redirect('/accounts/signupBusiness')
+                return redirect('/accounts/signupbusiness')
     else:
         form1 = SignupForm()
         form2 = EditProfileForm()
@@ -115,7 +115,7 @@ def signupUser(request):
 
 
 def signupVolunteer(request):
-    volunteer = Business.objects.last()
+    volunteer = Volunteer.objects.last()
     if(request.method == 'POST'):
         form3 = SignupVolunteerForm(request.POST)
         if form3.is_valid():
@@ -125,7 +125,7 @@ def signupVolunteer(request):
 
             return redirect('/login')
     else:
-        form3 = SignupVolunteerForm()
+        form3 = SignupVolunteerForm(initial={'name':volunteer.profile.user.first_name})
     return render(request, 'accounts/signupvolunteer.html', {'form3': form3})
 
 def signupClient(request):
@@ -140,7 +140,7 @@ def signupClient(request):
 
             return redirect('/login')
     else:
-        form3 = SignupClientForm()
+        form3 = SignupClientForm(initial={'name':client.profile.user.first_name})
     return render(request, 'accounts/signupclient.html', {'form3': form3})
 
 def signupBusiness(request):
@@ -156,7 +156,7 @@ def signupBusiness(request):
 
             return redirect('/login')
     else:
-        form3 = SignupBusinessForm()
+        form3 = SignupBusinessForm(initial={'name':business.profile.user.first_name})
     return redirect(request, 'accounts/signupbusiness.html', {'form3': form3})
 
 # def signup_foruser(request, group_id, user_slot_id):

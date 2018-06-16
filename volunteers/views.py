@@ -17,11 +17,11 @@ def requests(request):
         pickuprequests = PickupRequest.objects.all()
         return render(request, 'volunteers/requests.html', {'requests': pickuprequests})
     else:
-        return redirect('login')
+        return redirect('/login')
 
 def request(request, request_id):
     if request.user.is_authenticated():
         therequest = PickupRequest.objects.get(id=request_id)
         return render(request, 'volunteers/request.html', {'request': therequest})
     else:
-        return redirect('login')
+        return redirect('/login')

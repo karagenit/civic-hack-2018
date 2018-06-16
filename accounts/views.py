@@ -217,8 +217,5 @@ def signupBusiness(request):
 #         return HttpResponse('Activation link is invalid!')
 
 def logoutLander(request):
-    alert = Alert(text="You logged out", color=Alert.getRed())
-    alert.saveIP(request)
 
     return redirect('/login')
-    #return render(request, 'accounts/logout_lander.html')

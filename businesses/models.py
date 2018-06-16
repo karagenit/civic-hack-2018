@@ -11,7 +11,7 @@ class Business(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
 
     objects = models.Manager()
-    
+
     @receiver(post_save, sender=Profile)
     def create_user_business(sender, instance, **kwargs):
         if instance.member_type == '3':
@@ -25,13 +25,33 @@ class Business(models.Model):
 
 
 
-
-
-class FoodItem(models.Model):
+class FoodItemClass(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=512)
     business = models.ForeignKey(
         Business,
         on_delete=models.CASCADE,
     )
-    number = models.IntegerField(default=0)
+
+class IndividualFoodItem(models.Model):
+    item_class = models.ForeignKey(
+        FoodItemClass,
+        on_delete=models.CASCADE,
+    )
+    STATUS_CHOICES = (('1', 'Available',), ('2', 'Requested',), ('3', 'PickedUp'), ('4', 'Delivered'))
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES)
+
+    def get_available():
+        items = IndividualFoodItem.objects.filter(status='1')
+        return items
+
+    def get_available_for_business(business):
+        business_item_classes = FoodItemClass.objects.filter(business=business)
+        items = None
+        for item_class in business_item_classes:
+            if (items != None):
+                items = items | IndividualFoodItem.objects.filter(status='1', item_class=item_class)
+            else:
+                items = IndividualFoodItem.objects.filter(status='1', item_class=item_class)
+
+        return items

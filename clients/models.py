@@ -12,6 +12,7 @@ class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
+    items = models.ManyToManyField(FoodItem, related_name="cart")
 
     objects = models.Manager()
 
@@ -33,5 +34,6 @@ class PickupRequest(models.Model):
         on_delete=models.CASCADE,
     )
     items = models.ManyToManyField(FoodItem, related_name="request_fooditems")
-    comments = models.CharField(max_length=1024)
-    date_created = models.DateField()
+    date_created = models.DateTimeField()
+
+    

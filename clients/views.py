@@ -5,14 +5,30 @@ from datetime import datetime, timedelta, timezone
 def list_all_items(request):
     if (request.user.is_authenticated() && request.user.profile.is_client()):
         items = IndividualFoodItem.get_available()
-        return redirect('/client')
+        return render(request, 'client/list_all', {'items': items})
 
     else:
         return redirect('/login')
 
-from .forms import 
+def restaurants(request):
+    if (request.user.is_authenticated() && request.user.profile.is_client()):
+        businesses = Business.objects.all()
+        return render(request, 'client/restaurants.html', {'businesses': businesses})
+
+    else:
+        return redirect('/login')
+
+def list_restaurant_items(request, restaurant_id):
+    if (request.user.is_authenticated() && request.user.profile.is_client()):
+        restaurant = Business.objects.get(id=restaurant_id)
+        items = IndividualFoodItem.get_available_for_business(restaurant)
+        return render(request, 'client/restaurants.html', {'business': business, 'items': items})
+
+    else:
+        return redirect('/login')
+
+
 # Create your views here.
-<<<<<<< HEAD
 def checkout(request):
     if (request.user.is_authenticated() && request.user.profile.is_client()):
         client = request.user.profile.client
@@ -30,8 +46,6 @@ def checkout(request):
 
     else:
         return redirect('/login')
-
-
 
 
 def add_item(request, item_id):
@@ -55,22 +69,3 @@ def remove_item(request, item_id):
 
     else:
         return redirect('/login')
-=======
-
-def addClientRequest(request):
-    client = Client.objects.get(profile=request.user.profile)
-    if(request.method == 'POST'):
-        form = AddItemForm(request.POST)
-        # Makes sure the user filled out the form correctly as dictated by forms.py
-        if form.is_valid():
-            item = form.save(commit=False)
-            item.business = business
-            item.save()
-
-            return redirect('/businesses/viewItems/'+str(business.id))
-    else:
-        form = AddItemForm()
-
-
-    return render(request, 'business/addFoodItem.html', {'form': form})
->>>>>>> 30856e3f85e7638371e56b4ab6eed4a15cb34768

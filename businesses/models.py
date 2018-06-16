@@ -62,7 +62,7 @@ class IndividualFoodItem(models.Model):
         FoodItemClass,
         on_delete=models.CASCADE,
     )
-    STATUS_CHOICES = (('1', 'Available',), ('2', 'Requested',), ('3', 'PickedUp'), ('4', 'Delivered'))
+    STATUS_CHOICES = (('1', 'Available',), ('2', 'Requested',))
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
 
     def get_available():

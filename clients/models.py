@@ -29,6 +29,8 @@ class Client(models.Model):
             instance.client.save()
 
 class PickupRequest(models.Model):
+    STATUS_CHOICES = (('1', 'Requested',), ('2', 'In Progress',), ('3', 'Arrived'), ('4', 'Picked Up'), ('5', 'Delivered'))
+    status = models.CharField(max_length=50, default='Requested')
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

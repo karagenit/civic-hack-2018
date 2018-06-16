@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+  <div class="card-deck" style="margin-top: 1rem;">
+    {% for request in requests %}
+    <div class="card border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-header">{{r.name}}</div>
+      <div class="card-body text-secondary">
+        <h5 class="card-title">{{item.business.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+        <p class="card-text">
+          <a href="/clients/addToCart/{{item.id}}"><button class="btn btn-primary">Add To Cart</button></a>
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <a href="/clients/viewCart"><button class="btn btn-primary">View Cart</button></a>
+
+{% endblock %}

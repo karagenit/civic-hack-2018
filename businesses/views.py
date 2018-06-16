@@ -1,8 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import AddItemForm
-from .models import Business
+from .models import Business, FoodItem
 
 # Create your views here.
+def test(request):
+    return render(request, 'hi.html')
+
+def home(request):
+    business = Business.objects.get(profile=request.user.profile)
+    return redirect('/businesses/viewItems/'+str(business.id))
+
 def addFoodItem(request, biz_id):
     business = Business.objects.get(id=biz_id)
     if(request.method == 'POST'):
@@ -13,17 +20,17 @@ def addFoodItem(request, biz_id):
             item.business = business
             item.save()
 
-            return redirect('/business/viewItems/'+str(business.id))
+            return redirect('/businesses/viewItems/'+str(business.id))
     else:
-        form1 = SignupForm()
-        form2 = EditProfileForm()
+        form = AddItemForm()
 
-    return render(request, 'accounts/signupuser.html', {'form1': form1, 'form2': form2})
+
+    return render(request, 'business/addFoodItem.html', {'form': form})
 
 def viewItems(request, biz_id):
     business = Business.objects.get(id=biz_id)
     items = FoodItem.objects.filter(business=business)
-    return render(reqeuest, 'business/viewItems.html', {'business': business, 'items':items})
+    return render(request, 'business/viewItems.html', {'business': business, 'items':items})
 
 def addToItemCount(request, item_id):
     item = Item.objects.get(id=item_id)

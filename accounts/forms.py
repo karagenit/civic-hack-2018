@@ -7,6 +7,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from .models import Profile
 
+from clients.models import Client
 
 
 class EditProfileForm(forms.Form):
@@ -214,6 +215,11 @@ class SignupClientForm(forms.Form):
         attrs={'type': 'text',
                'class': 'form-control form',
                'placeholder': 'Address'}))
+    gender = forms.ChoiceField(choices=Client.CHOICES2, widget=forms.Select(
+        attrs={'type': 'text',
+               'class': 'form-control form',
+               'placeholder': 'Person Type'}))
+    active = forms.BooleanField()
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -222,6 +228,13 @@ class SignupClientForm(forms.Form):
     def clean_address(self):
         address = self.cleaned_data['address']
         return address
+
+    def clean_gender(self):
+        gender = self.cleaned_data['gender']
+        return gender
+    def clean_active(self):
+        active = self.cleaned_data['active']
+        return active
 
     def save(self, commit=True):
         return self.cleaned_data

@@ -18,6 +18,27 @@ class AddItemForm(forms.Form):
         attrs={'type': 'text',
                'class': 'form-control form',
                'placeholder': 'Description'}))
+    fat = forms.IntegerField(label='Fat g', widget=forms.NumberInput(
+      attrs={ 'type': 'number',
+              'max': '20',
+              'class': 'form-control form',
+              'placeholder': 'Grams of Fat'}))
+    carbs = forms.IntegerField(label='Carbs g', widget=forms.NumberInput(
+      attrs={ 'type': 'number',
+              'max': '400',
+              'class': 'form-control form',
+              'placeholder': 'Grams of Carbohydrates'}))
+    protein = forms.IntegerField(label='Protein g', widget=forms.NumberInput(
+      attrs={ 'type': 'number',
+              'max': '60',
+              'class': 'form-control form',
+              'placeholder': 'Grams of Protein'}))
+    calories = forms.IntegerField(label='Calories', widget=forms.NumberInput(
+      attrs={ 'type': 'number',
+              'max': '3000',
+              'class': 'form-control form',
+              'placeholder': 'Calories'}))
+
 
     # May only contain alphabetical character
 
@@ -26,5 +47,9 @@ class AddItemForm(forms.Form):
         item = FoodItemClass(
             name=self.cleaned_data['name'],
             description=self.cleaned_data['description'],
+            carbs=self.cleaned_data['carbs'],
+            fat=self.cleaned_data['fat'],
+            protein=self.cleaned_data['protein'],
+            calories=self.cleaned_data['calories']
         )
         return item

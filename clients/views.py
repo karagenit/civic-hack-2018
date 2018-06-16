@@ -5,7 +5,7 @@ from businesses.models import FoodItemClass, IndividualFoodItem
 from .models import PickupRequest, BusinessRequest, Counter
 from django.http import HttpResponse, HttpResponseRedirect
 from businesses.models import Business, FoodItemClass
-
+from clients.dieteryanalyzer import *
 def home(request):
     if (request.user.is_authenticated() and request.user.profile.is_client()):
         return redirect('/clients/list')
@@ -51,7 +51,16 @@ def list_restaurant_items(request, restaurant_id):
 def viewCart(request):
     if (request.user.is_authenticated() and request.user.profile.is_client()):
         items =  request.user.profile.client.cart.all()
-        return render(request, 'client/checkout.html', {'items': items})
+        average = 0
+        count=0
+        for item in items:
+            average += total_percent_deviation(get_from_percent_ideal(27.5, item.item_class.fat * 9, item.item_class.calories), get_from_percent_ideal(27.5, item.item_class.protein * 4, item.item_class.calories), get_from_percent_ideal(27.5, item.item_class.carbs * 4, item.item_class.calories))
+            count+=1
+        if count is not 0:
+            average /= count
+        else:
+            average = 0
+        return render(request, 'client/checkout.html', {'items': items,'deviation': average})
     else:
         return redirect('/login')
 

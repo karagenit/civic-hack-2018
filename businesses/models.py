@@ -34,13 +34,10 @@ class FoodItemClass(models.Model):
         Business,
         on_delete=models.CASCADE,
     )
-
-    # def get_number_available(self):
-    #     if (IndividualFoodItem.objects.filter(item_class=self).filter(status='1') == None):
-    #         return 0
-    #     else:
-    #         return IndividualFoodItem.objects.filter(item_class=self).filter(status='1').count()
-
+    fat = models.IntegerField(default=None)
+    carbs = models.IntegerField(default=None)
+    protein = models.IntegerField(default=None)
+    calories = models.IntegerField(default=None, blank=True, null=True)
 
     def get_items_classes_for_business(business):
         item_classes = FoodItemClass.objects.filter(business=business)
@@ -61,7 +58,7 @@ class FoodItemClass(models.Model):
 
 
     def get_item(self):
-        return IndividualFoodItem.objects.filter(item_class=self, status='1').first()
+        return IndividualFoodItem.objects.filter(item_class=self).filter(status='1').first()
 
     def get_list_available():
         list = []

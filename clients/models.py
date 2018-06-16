@@ -31,6 +31,9 @@ class Client(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
     cart = models.ManyToManyField(IndividualFoodItem, related_name="cart")
     objects = models.Manager()
+    CHOICES2 = (('1', 'Male',), ('2', 'Female',))
+    gender = models.CharField(max_length=50, choices=CHOICES2)
+    active = models.BooleanField(default=True)
 
     def get_num_items_in_cart(self, item_class):
         count = 0

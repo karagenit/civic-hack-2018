@@ -25,6 +25,7 @@ class Profile(models.Model):
     CHOICES = (('1', 'Senior Citizen',), ('2', 'Volunteer Driver',), ('3', 'Restaurant'))
     member_type = models.CharField(max_length=50, choices=CHOICES)
 
+
     permission = {}  # the key is the permission itself which can be a url or just a word for the permission the value is a list of orgainizations it can do this action for
 
     def is_client(profile):

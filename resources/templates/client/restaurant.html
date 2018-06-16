@@ -1,0 +1,54 @@
+{% extends "client/header.html" %}
+{% load extras %}
+
+{% block content %}
+<p></p>
+  <div class="jumbotron">
+    <h1 class="display-1">{{business.name}}</h1>
+
+
+    <h5 class="mb-0">{{business.address}}</h5>
+    <h1></h1>
+
+
+  </div>
+
+
+
+
+  <h3>Items
+
+  </h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tbody>
+        <thead>
+          <th> Name </th>
+          <th> Description </th>
+          <th> Number Available </th>
+          {% if user.profile.is_client %}
+            <th> Add to Cart </th>
+          {% endif %}
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td> {{item.name}} </td>
+              <td> {{item.description}} </td>
+              <td> {{item|get_count_including_cart:user}} </td>
+              {% if user.profile.is_client %}
+                <td> <a href="/clients/addToCartRestaraunt/{{item.id}}"><button class="btn btn-primary">Add</button></a> </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+{% endblock %}

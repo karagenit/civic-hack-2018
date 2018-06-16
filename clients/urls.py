@@ -13,6 +13,12 @@ urlpatterns = [
     url(r'^viewCart/$', views.viewCart),
     url(r'^checkout/$', views.checkout),
 
+    url(r'^restaurants/$', views.overallRestarauntView),
+    url(r'^restaurant/(?P<business_id>[0-9]+)$', views.viewRestaurant),
+
+    url(r'^addToCartRestaraunt/(?P<item_id>[0-9]+)/$', views.add_item_restaurant),
+
+
     # edit item
     # view drivers
 ]

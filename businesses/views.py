@@ -9,7 +9,7 @@ def test(request):
 def home(request):
     if (request.user.is_authenticated() and request.user.profile.is_restaurant()):
         business = Business.objects.get(profile=request.user.profile)
-        return redirect('/businesses/viewItems/'+str(business.id))
+        return redirect('/businesses/viewItems/')
     else:
         return redirect('/login')
 
@@ -23,7 +23,7 @@ def addFoodItem(request, biz_id):
             item.business = business
             item.save()
 
-            return redirect('/businesses/viewItems/'+str(business.id))
+            return redirect('/businesses/viewItems/')
     else:
         form = AddItemForm()
 

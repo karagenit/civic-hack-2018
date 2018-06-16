@@ -9,7 +9,7 @@ def home(request):
             return redirect('/client')
         elif (user.profile.is_restaurant()):
             return redirect('/businesses')
-        elif (user.profile.is_diver()):
+        elif (user.profile.is_driver()):
             return redirect('/volunteers')
         else:
             return redirect('/login')

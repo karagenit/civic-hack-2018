@@ -15,16 +15,18 @@ class EditProfileForm(forms.Form):
         self.profile = kwargs.pop('profile', None)
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
-    member_type = forms.ChoiceField(choices=Profile.CHOICES, widget=forms.RadioSelect(
+    member_type = forms.ChoiceField(choices=Profile.CHOICES, widget=forms.Select(
         attrs={'type': 'text',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Person Type'}))
 
     bio = forms.CharField(label='Bio', max_length=360, widget=forms.Textarea(
         attrs={
             'type': 'text',
-            'class': 'form-control',
+            'class': 'form-control form',
             'rows': 5,
             'style': 'resize:none;',
+            'placeholder': 'Bio'
         }), required=False)
 
     def clean_membertype(self):
@@ -88,22 +90,29 @@ class EditPasswordForm(PasswordChangeForm):
 class SignupForm(forms.Form):
     first_name = forms.CharField(label='First Name', max_length=150, widget=forms.TextInput(
         attrs={'type': 'text',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'First Name'}))
+
     last_name = forms.CharField(label='Last Name', max_length=150, widget=forms.TextInput(
         attrs={'type': 'text',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Last Name'}))
     username = forms.CharField(label='Username', min_length=4, max_length=150, widget=forms.TextInput(
         attrs={'type': 'text',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Username'}))
     email = forms.EmailField(label='Email', max_length=200, widget=forms.EmailInput(
         attrs={'type': 'text',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Email'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(
         attrs={'type': 'password',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Password'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(
         attrs={'type': 'password',
-               'class': 'form-control'}))
+               'class': 'form-control form',
+               'placeholder': 'Confirm Password'}))
 
     # May only contain alphabetical characters
     def clean_firstname(self):

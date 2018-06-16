@@ -1,0 +1,51 @@
+input {
+    margin: 1%;
+    border-radius: 0px;
+    border: none;
+    border-bottom: 2px solid black;
+    font-size: 180% !important;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+}
+
+.inline > input {
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+    padding: 0% !important;
+}
+
+.inline-right > input {
+    margin-left: 0% !important;
+    margin-right: 31% !important;
+    padding: 0% !important;
+}
+
+.inline-left > input {
+    margin-left: 31% !important;
+    margin-right: 0% !important;
+    padding: 0% !important;
+}
+
+.inline {
+    padding: .6% !important;
+}
+
+input::placeholder {
+    color: black;
+    display: table-cell;
+}
+
+input:focus {
+    border-bottom: 2px solid #008CBA;
+    background-color: white !important;
+    color: #008CBA;
+    font-size: 200% !important;
+    -webkit-box-shadow:  none !important;
+    -moz-box-shadow:  none !important;
+    box-shadow:  none !important;
+}
+
+input:focus::placeholder {
+    color: #008CBA;
+}

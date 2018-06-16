@@ -1,6 +1,7 @@
 {% extends "header.html" %}
 
 {% block content %}
+  <link href="/static/css/forms.css" rel="stylesheet" type="text/css">
   <h1> Sign up </h1>
   <h1>  </h1>
   <form method="post">
@@ -8,8 +9,7 @@
       {% for field in form1 %}
       <p align="left">
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label">{{ field.label }}</label>
-          <div class="col-sm-9"> {{ field }} </div>
+          <div class="col-sm-12"> {{ field }} </div>
         </div>
         {% if field.help_text %}
           <small style="display: none">{{ field.help_text }}</small>
@@ -22,8 +22,7 @@
       {% for field in form2 %}
       <p align="left">
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label">{{ field.label }}</label>
-          <div class="col-sm-9"> {{ field }} </div>
+          <div class="col-sm-12"> {{ field }} </div>
         </div>
         {% if field.help_text %}
           <small style="display: none">{{ field.help_text }}</small>

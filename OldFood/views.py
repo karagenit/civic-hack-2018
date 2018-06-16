@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 
 # Sending user object to the form, to verify which fields to display/remove (depending on group)
 def home(request):
-    return render(request, 'index.html')
     if request.user.is_authenticated():
         user = request.user
         if (user.profile.is_client()):
@@ -16,4 +15,4 @@ def home(request):
             return redirect('/login')
 
     else:
-        return redirect('/login')
+        return render(request, 'index.html')

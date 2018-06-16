@@ -115,8 +115,7 @@ def signupUser(request):
 
 
 def signupVolunteer(request):
-    profile = request.user.profile
-    volunteer = Business.objects.get(volunteer=volunteer)
+    volunteer = Business.objects.last()
     if(request.method == 'POST'):
         form3 = SignupVolunteerForm(request.POST)
         if form3.is_valid():
@@ -145,8 +144,7 @@ def signupClient(request):
     return render(request, 'accounts/signupclient.html', {'form3': form3})
 
 def signupBusiness(request):
-    profile = request.user.profile
-    business = Business.objects.get(profile=profile)
+    business = Business.objects.last()
     if(request.method == 'POST'):
         form3 = SignupBusinessForm(request.POST)
         if form3.is_valid():

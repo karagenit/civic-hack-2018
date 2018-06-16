@@ -1,5 +1,5 @@
 from email.mime.image import MIMEImage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import *
@@ -13,7 +13,9 @@ from django.core.mail import EmailMultiAlternatives
 from .models import Profile
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import UpdateView
-
+from businesses.models import Business
+from clients.models import Client
+from volunteers.models import Volunteer
 from django.contrib.auth import update_session_auth_hash
 
 
@@ -98,7 +100,13 @@ def signupUser(request):
             profile.member_type = data['member_type']
             profile.save()
 
-            return redirect('/login')
+            if profile.member_type == '1':
+                print("yeet")
+                return redirect('/accounts/signupclient')
+            if profile.member_type == '2':
+                return redirect('/accounts/signupVolunteer')
+            if profile.member_type == '3':
+                return redirect('/accounts/signupBusiness')
     else:
         form1 = SignupForm()
         form2 = EditProfileForm()
@@ -106,6 +114,52 @@ def signupUser(request):
     return render(request, 'accounts/signupuser.html', {'form1': form1, 'form2': form2})
 
 
+def signupVolunteer(request):
+    profile = request.user.profile
+    volunteer = Business.objects.get(volunteer=volunteer)
+    if(request.method == 'POST'):
+        form3 = SignupVolunteerForm(request.POST)
+        if form3.is_valid():
+            data = form3.save()
+            volunteer.name = data['name']
+            volunteer.save()
+
+            return redirect('/login')
+    else:
+        form3 = SignupVolunteerForm()
+    return render(request, 'accounts/signupvolunteer.html', {'form3': form3})
+
+def signupClient(request):
+    client = Client.objects.last()
+    if(request.method == 'POST'):
+        form3 = SignupClientForm(request.POST)
+        if form3.is_valid():
+            data = form3.save()
+            client.name = data['name']
+            client.address = data['address']
+            client.save()
+
+            return redirect('/login')
+    else:
+        form3 = SignupClientForm()
+    return render(request, 'accounts/signupclient.html', {'form3': form3})
+
+def signupBusiness(request):
+    profile = request.user.profile
+    business = Business.objects.get(profile=profile)
+    if(request.method == 'POST'):
+        form3 = SignupBusinessForm(request.POST)
+        if form3.is_valid():
+            data = form3.save()
+            business.name = data['name']
+            business.address = data['address']
+            business.save()
+
+
+            return redirect('/login')
+    else:
+        form3 = SignupBusinessForm()
+    return redirect(request, 'accounts/signupbusiness.html', {'form3': form3})
 
 # def signup_foruser(request, group_id, user_slot_id):
 #     # Checks if the user is sending their data (POST) or getting the form (GET)

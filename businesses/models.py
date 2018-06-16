@@ -10,6 +10,8 @@ class Business(models.Model):
     address = models.CharField(max_length=256)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
 
+    objects = models.Manager()
+    
     @receiver(post_save, sender=Profile)
     def create_user_business(sender, instance, **kwargs):
         if instance.member_type == '3':

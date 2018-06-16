@@ -12,6 +12,9 @@ class Client(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
+
+    objects = models.Manager()
+    
     # TODO some way to ask for/schedule 'drop-offs'
     @receiver(post_save, sender=Profile)
     def create_user_client(sender, instance, **kwargs):

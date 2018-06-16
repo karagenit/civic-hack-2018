@@ -4,7 +4,6 @@
 {% block content %}
   <link href="/static/css/login.css" rel="stylesheet" type="text/css">
   <div class="login">
-    <img class="img-fluid" src="/static/img/logos.ico/WithText.jpg" alt="Sapphire Logo">
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}

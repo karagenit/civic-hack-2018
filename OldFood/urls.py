@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^$', auth_views.login, {'template_name':'accounts/login.html'}),
-    url(r'^businesses/', include('businesses.urls', namespace='businesses'))
+    url(r'^businesses/', include('businesses.urls', namespace='businesses')),
     url(r'^login', auth_views.login, {'template_name':'accounts/login.html'}),
     url(r'^$', views.home),
 

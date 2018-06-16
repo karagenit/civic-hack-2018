@@ -1,0 +1,26 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+<link href="/static/css/forms.css" rel="stylesheet" type="text/css">
+
+<form method="post">
+  {% csrf_token %}
+    {% for field in form %}
+    <p align="left">
+      <div class="form-group row">
+        <div class="col-sm-12"> {{ field }} </div>
+      </div>
+      {% if field.help_text %}
+        <small style="display: none">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit">Confirm</button>
+    <a href="/accounts/signupprofile" class="btn btn-secondary">Continue</a>
+</form>
+{% endblock %}

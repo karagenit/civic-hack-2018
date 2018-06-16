@@ -27,6 +27,15 @@ class Profile(models.Model):
 
     permission = {}  # the key is the permission itself which can be a url or just a word for the permission the value is a list of orgainizations it can do this action for
 
+    def is_client(profile):
+        return profile.member_type == '1'
+
+    def is_diver(profile):
+        return profile.member_type == '2'
+
+    def is_restaurant(profile):
+        return profile.member_type == '3'
+
     # add permission to the profile for the PERM and the ORG
     def addPermission(self, perm, org):
         if self.permission.get(perm,None) is None:
@@ -56,4 +65,3 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     except:
         print("stuff")
-        

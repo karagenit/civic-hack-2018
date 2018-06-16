@@ -3,6 +3,9 @@
 
 {% block content %}
   {% for item in items %}
-    <p>{{item.name}}</p>
+    <h1>{{item.name}}</h1>
   {% endfor %}
+  <a class="text-center" href="/businesses/addFoodItems/{{business.id}}">
+    <button class="btn btn-primary">Add</button>
+  </a>
 {% endblock %}

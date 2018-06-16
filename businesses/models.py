@@ -29,7 +29,7 @@ class PickupRequest(models.Model):
     date_created = models.DateField()
     available_for = models.DurationField()
 
-class FoodItem(object):
+class FoodItem(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=512)
     business = models.ForeignKey(
@@ -37,4 +37,3 @@ class FoodItem(object):
         on_delete=models.CASCADE,
     )
     number = models.IntegerField(default=0)
-    

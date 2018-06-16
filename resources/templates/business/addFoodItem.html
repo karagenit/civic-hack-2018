@@ -3,11 +3,11 @@
 
 {% block content %}
 <link href="/static/css/forms.css" rel="stylesheet" type="text/css">
-
+<h1 class="display-1">Add Food</h1>
 <form method="post">
   {% csrf_token %}
     {% for field in form %}
-    <p align="left">
+    <p align="center">
       <div class="form-group row">
         <div class="col-sm-12"> {{ field }} </div>
       </div>

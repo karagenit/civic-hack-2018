@@ -2,6 +2,7 @@
 
 
 {% block content %}
+  <h1 class="display-1">Food Items <a class="plus" href="/businesses/addFoodItems/{{business.id}}">+</a></h1>
   <div class="card-deck" style="margin-top: 1rem;">
     {% for item in items %}
     <div class="card border-secondary mb-3" style="max-width: 18rem;">
@@ -23,9 +24,4 @@
     {% endif %}
     {% endfor %}
   </div>
-
-
-  <a class="text-center" href="/businesses/addFoodItems/{{business.id}}">
-    <button class="btn btn-primary">Add</button>
-  </a>
 {% endblock %}

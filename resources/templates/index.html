@@ -21,9 +21,16 @@
   <body>
     <h1><b><h2 align="center"> Old Food</h2></b></h1><hr>
     <object align="top">
-    <a href="/login">
-      <button type="button" class="btn btn-light">Login</button>
+    {% if request.user.is_authenticated %}
+    <a href="/">
+      <button type="button" class="btn btn-light">Continue</button>
     </a>
+    {% else %}
+    <a href="/login">
+      <button type="button" class="btn btn-light">Continue</button>
+    </a>
+    {% endif %}
+
     <a href="/accounts/signupuser"; align="right">
     <button type="button" class="btn btn-light" style="float: center;">New User</button>
   </a>

@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('timezone', models.CharField(default='EST', max_length=50)),
                 ('bio', models.CharField(default='', max_length=1000)),
-                ('member_type', models.CharField(choices=[('1', 'Senior Citizen'), ('2', 'Volunteer Driver'), ('3', 'Restaraunt')], max_length=50)),
+                ('member_type', models.CharField(choices=[('1', 'Senior Citizen'), ('2', 'Volunteer Driver'), ('3', 'Restaurant')], max_length=50)),
                 ('team', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='accounts.Profile')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

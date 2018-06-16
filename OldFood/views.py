@@ -15,4 +15,7 @@ def home(request):
             return redirect('/login')
 
     else:
-        return render(request, 'index.html')
+        return render(request, 'index.html', {'request':request})
+
+def index(request):
+    return render(request, 'index.html', {'request':request})

@@ -25,7 +25,7 @@ def list_all_items(request):
     else:
         return redirect('/login')
 
-def overallRestarauntView(request):
+def overallRestaurantView(request):
     businesses = Business.objects.all()
     return render(request, 'client/restaurants.html', {'businesses': businesses})
 
